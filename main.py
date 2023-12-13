@@ -113,6 +113,9 @@ def show_rules():
 def main_menu():
     global qq
     global score
+
+    random.shuffle(qq)
+
     os.system('clear')
     menu = ['Start', 'Rules', 'Exit']
     score = 0
