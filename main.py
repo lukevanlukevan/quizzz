@@ -37,7 +37,6 @@ def check_answer(answers, correct, response):
 def give_question(ques):
     global score
     os.system('clear')
-    print(len(qq))
 
     print(f'Score: {score}\n')
 
