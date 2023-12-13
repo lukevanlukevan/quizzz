@@ -1,11 +1,11 @@
 import os
 import random
 from questions import questions
-import logging as l
 
 qq = questions
+finished = []
 
-total = len(qq)
+total = 0
 indexes = ["A", "B", "C", "D"]
 score = 0
 q_num = 0
@@ -31,7 +31,8 @@ def check_answer(answers, correct, response):
 
     q_num += 1
 
-    qq.pop(0)
+    completed_question = qq.pop(0)
+    finished.append(completed_question)
 
 
 def give_question(ques):
@@ -76,11 +77,19 @@ def end_card():
 
 def run_quiz():
     global qq
+    global score
+    global q_num
+    global total
+    total = len(qq)
     while len(qq) > 0:
         q = qq[0]
         give_question(q)
 
     if len(qq) == 0:
+        score = 0
+        q_num = 0
+        qq = finished[::-1]
+
         end_card()
         print('\n')
         input("Press enter to return to main menu.")
@@ -103,6 +112,7 @@ def show_rules():
 
 def main_menu():
     global qq
+    global score
     os.system('clear')
     menu = ['Start', 'Rules', 'Exit']
     score = 0
@@ -116,7 +126,6 @@ def main_menu():
     menuselect = input(f"Please select an option: ").upper()
 
     if menuselect == "A":
-        qq = basequestions
         run_quiz()
     elif menuselect == "B":
         show_rules()
