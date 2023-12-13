@@ -135,6 +135,8 @@ def main_menu():
     elif menuselect == "C":
         print("Goodbye!")
         exit()
+    else:
+        pass
 
 
 main_menu()
