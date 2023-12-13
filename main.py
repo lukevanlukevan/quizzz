@@ -1,4 +1,4 @@
-import os
+from os import system, name
 import random
 from questions import questions
 
@@ -11,17 +11,27 @@ score = 0
 q_num = 0
 
 
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
+
 def check_answer(answers, correct, response):
     global score
     global q_num
 
-    os.system('clear')
+    clear()
 
     pickedindex = indexes.index(response)
     correctindex = answers.index(correct)
 
     if pickedindex == correctindex:
-        os.system('clear')
+        clear()
         print("Correct!")
         score += 1
     else:
@@ -37,7 +47,7 @@ def check_answer(answers, correct, response):
 
 def give_question(ques):
     global score
-    os.system('clear')
+    clear()
 
     print(f'Score: {score}\n')
 
@@ -64,21 +74,19 @@ def give_question(ques):
     if response in indexes:
         check_answer(answers, correct, response)
     else:
-        os.system('clear')
+        clear()
         print("Please enter a valid answer (A, B, C or D)")
         input("Press enter to continue")
 
 
 def end_card():
-    os.system('clear')
+    clear()
     print("🏆🏆🏆")
     print(f"You have finished the quiz!\nYour final score was {score}/{total}")
 
 
 def run_quiz():
     global qq
-    global score
-    global q_num
     global total
     total = len(qq)
     while len(qq) > 0:
@@ -86,8 +94,6 @@ def run_quiz():
         give_question(q)
 
     if len(qq) == 0:
-        score = 0
-        q_num = 0
         qq = finished[::-1]
 
         end_card()
@@ -99,7 +105,7 @@ def run_quiz():
 
 
 def show_rules():
-    os.system('clear')
+    clear()
     print("Rules:\n")
     print("You will be asked a series of questions about Harry Potter.")
     print("You will be presented with 4 possible answers.")
@@ -113,10 +119,14 @@ def show_rules():
 def main_menu():
     global qq
     global score
+    global q_num
+
+    score = 0
+    q_num = 0
 
     random.shuffle(qq)
 
-    os.system('clear')
+    clear()
     menu = ['Start', 'Rules', 'Exit']
     score = 0
     menustring = ""
